@@ -22,6 +22,7 @@ var GameState = {
             fill: "#ffffff",
             align: "center"
         }
+        
         var ripped = "The 1.4 million dollar TSA APP\nTap the Arrow.";
         var taxPayersGotOwned = game.add.text(game.width / 2, game.height / 2 - 150, ripped, style);
         taxPayersGotOwned.anchor.setTo(0.5);
@@ -42,7 +43,7 @@ var GameState = {
             this.arrowButton.alpha = 0.1;
            
             console.log("hello");
-            game.time.events.add(Phaser.Timer.SECOND * 0.1, function(randomText, arrowButton){
+            game.time.events.add(Phaser.Timer.SECOND * 0.1, function(arrowButton){
                 this.arrowButton.destroy();
                 var money = Math.floor(Math.random() * 2);
                 this.millionDollaFunction(money);
@@ -52,20 +53,17 @@ var GameState = {
     },
 
     millionDollaFunction: function (showMeTheMoney) {
-        imRich = (showMeTheMoney <1 ) ? this.rightArrow():this.leftArrow();
+        var leftPoint = 1
+        var rightPoint = -1
+        imRich = (showMeTheMoney <1 ) ? this.Arrow(rightPoint):this.Arrow(leftPoint);
     },
 
-        rightArrow: function() {
-            this.arrowButton = game.add.button(game.width / 2, game.height - 150, "arrow", this.fadeOut, this);
-            this.arrowButton.anchor.set(0.5);
-            this.arrowButton.scale.setTo(-1, 0.5);
+    Arrow: function(leftOrRightPoint) {
+        this.arrowButton = game.add.button(game.width / 2, game.height - 150, "arrow", this.fadeOut, this);
+        this.arrowButton.anchor.set(0.5);
+        this.arrowButton.scale.setTo(leftOrRightPoint, 0.5);
     },
 
-        leftArrow: function() {
-            this.arrowButton = game.add.button(game.width / 2, game.height - 150, "arrow", this.fadeOut, this);
-            this.arrowButton.anchor.set(0.5);
-            this.arrowButton.scale.setTo(1, 0.5);
-    },
 };
 
 var game = new Phaser.Game(600, 375, Phaser.AUTO);
